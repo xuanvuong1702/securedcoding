@@ -1,0 +1,15 @@
+{
+  "filter": {
+    "attributes": []
+  },
+  "pagination": {
+    "itemsPerPage": 40,
+    "pageNumber": 1
+  },
+  "query": "ghe",
+  "sorting": {},
+  "returnFilterable": [],
+  "block": {},
+  "slug": "",
+  "terminalCode": "phongvu"
+}

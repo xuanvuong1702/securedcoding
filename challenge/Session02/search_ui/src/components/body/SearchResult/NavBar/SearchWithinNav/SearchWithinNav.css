@@ -1,0 +1,30 @@
+.search-within-nav-container {
+  background-color: white;
+  margin: 4px 0;
+  border-radius: 4px;
+}
+
+.search-within-nav-header {
+  width: 100%;
+  padding: 8px 16px;
+  border: none;
+  display: flex;
+  align-items: center;
+  border-radius: none;
+  border-bottom: 1px solid #ccc;
+}
+
+.search-within-icons {
+  margin-right: 8px;
+}
+
+.search-within-label {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.search-within-nav-body {
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: none;
+}

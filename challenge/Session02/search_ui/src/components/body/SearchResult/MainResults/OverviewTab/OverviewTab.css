@@ -1,0 +1,39 @@
+.overview-tab-container {
+  padding: 0 16px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.overview-tab-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.overview-tab-print-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overview-tab-chart-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 12px 0 24px;
+}
+
+.ant-steps-icon-dot {
+  display: none;
+}
+
+.ant-steps-item {
+  margin: 0 12px;
+  border-radius: 4px;
+}
+.ant-steps-item-active {
+  color: #751c24
+}
+.ant-steps-item-title {
+  font-weight: bold;
+}

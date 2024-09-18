@@ -1,0 +1,12 @@
+.modal-sugges {
+  padding: 0 16px;
+}
+
+.list-item {
+  padding: 8px 0;
+  border-bottom: 1px solid gray;
+}
+
+.red-text {
+  color: red;
+}

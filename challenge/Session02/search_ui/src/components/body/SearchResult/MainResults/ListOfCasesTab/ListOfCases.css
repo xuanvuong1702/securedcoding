@@ -1,0 +1,26 @@
+.list-of-cases-container {
+    padding: 0 16px 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.list-of-cases-sort-box {
+    display: flex;
+}
+
+.list-of-cases-box-result {
+    flex: 1;
+}
+
+.list-of-case-box-control {
+    display: flex;
+    gap: 16px;
+    flex: 1;
+}
+
+.list-of-case-display-control {
+    flex: 1;
+}
+.list-of-case-sort-control {
+    flex: 1;
+}

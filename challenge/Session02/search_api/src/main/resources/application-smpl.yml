@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: search-service
+  datasource:
+    url: jdbc:mysql://datamart-cmc.mysql.database.azure.com/injury_case
+    username: injury_case
+    password: Cmcg@023
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: update
+        format_sql: true
+elasticsearch:
+  host: localhost
+  port: 9200
+  index: law_injury_case_1
+  search: http://localhost:9200/law_injury_case/_search
+server:
+  port: 8081

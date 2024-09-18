@@ -1,0 +1,21 @@
+{
+  "mappings": {
+    "properties": {
+      "id": {"type": "integer"},
+      "uuid": {"type": "keyword"},
+      "name": {"type": "text"},
+      "party_name": {"type": "text"},
+      "liability": {"type": "text"},
+      "accident_time": {"type": "date", "format": "epoch_millis"},
+      "asessed_time": {"type": "date", "format": "epoch_millis"},
+      "plaintiff_sex": {"type": "keyword"},
+      "plaintiff_age": {"type": "keyword"},
+      "plaintiff_job": {"type": "text"},
+      "injury": {"type": "text"},
+      "treatment": {"type": "text"},
+      "disabilities": {"type": "text"},
+      "awarded": {"type": "text"},
+      "doc_json": {"type": "text"}
+    }
+  }
+}

@@ -1,0 +1,7 @@
+# for common
+export MYSQL_CONNECTION=jdbc:mysql://mysql/injury_case
+export MYSQL_USER=root
+export MYSQL_PASSWORD=123456
+export ES_HOST=localhost
+export ES_PORT=9200
+export ES_INDEX=law_injury_case

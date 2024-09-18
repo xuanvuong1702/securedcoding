@@ -1,0 +1,112 @@
+version: "3"
+
+services:
+#  ubuntu:
+#    container_name: ubuntu-container
+#    image: ubuntu:latest
+#    command: ["sleep","infinity"]
+#    networks:
+#      - es-net
+#
+#  mysql:
+#    container_name: mysql-container
+#    image: mysql:8.0.33
+#    restart: unless-stopped
+#    tty: true
+#    ports:
+#      - "3306:3306"
+#    environment:
+#      MYSQL_DATABASE: injury_case
+#      MYSQL_ROOT_PASSWORD: 123456Aa@
+#      MYSQL_USER: injury_case
+#      MYSQL_PASSWORD: Cmcg@023
+#      SERVICE_TAGS: dev
+#      SERVICE_NAME: mysql
+#    networks:
+#      - es-net
+    #volumes:
+    #  - ./mysql/data:/var/lib/mysql
+
+  search_engine:
+    container_name: search-engine
+    image: hoangpt/search-engine:latest
+    ports:
+      - "8080:8080"
+    environment:
+      MYSQL_CONNECTION: jdbc:mysql://datamart-cmc.mysql.database.azure.com/injury_case
+      MYSQL_USER: injury_case
+      MYSQL_PASSWORD: Cmcg@023
+      ES_HOST: elasticsearch
+      ES_PORT: 9200
+      ES_INDEX: law_injury_case
+    networks:
+      - es-net
+    depends_on:
+      - elasticsearch
+      - mysql
+
+  search_ui:
+    container_name: search-ui
+    image: hoangpt/search-ui:latest
+    ports:
+      - "8000:80"
+    networks:
+      - es-net
+    volumes:
+      - ./search_ui/public:/app/public
+    depends_on:
+      - search_engine
+
+  elasticsearch:
+    container_name: es-container
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.0
+    environment:
+      - xpack.security.enabled=false
+      - "discovery.type=single-node"
+    networks:
+      - es-net
+    ports:
+      - 9200:9200
+#  kibana:
+#    container_name: kb-container
+#    image: docker.elastic.co/kibana/kibana:7.11.0
+#    environment:
+#      - ELASTICSEARCH_HOSTS=http://es-container:9200
+#    networks:
+#      - es-net
+#    depends_on:
+#      - elasticsearch
+#    ports:
+#      - 5601:5601
+#  zoo1:
+#    image: zookeeper:3.4.9
+#    hostname: zoo1
+#    ports:
+#      - "2181:2181"
+#    environment:
+#      ZOO_MY_ID: 1
+#      ZOO_PORT: 2181
+#      ZOO_SERVERS: server.1=zoo1:2888:3888
+#  kafka1:
+#    image: confluentinc/cp-kafka:5.5.1
+#    hostname: kafka1
+#    ports:
+#      - "9092:9092"
+#      - "29092:29092"
+#    environment:
+#      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://127.0.0.1:29092,LISTENER_DOCKER_EXTERNAL://127.0.0.1:9092
+#      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+#      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
+#      KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
+#      KAFKA_CREATE_TOPICS: sync-data:1:1:compact
+#      KAFKA_BROKER_ID: 1
+#      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#    depends_on:
+#      - zoo1
+
+networks:
+  es-net:
+
+volumes:
+  dbdata: 

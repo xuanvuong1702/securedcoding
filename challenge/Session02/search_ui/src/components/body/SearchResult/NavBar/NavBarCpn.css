@@ -1,0 +1,5 @@
+.nav-bar-cpn-container {
+  display: flex;
+  flex-direction: column;
+  margin-right: 8px;
+}

@@ -1,0 +1,29 @@
+.casescommon-title {
+    font-weight: bold;
+    color: #751c24;
+    font-size: 20px;
+    text-decoration: underline;
+    margin: 8px 0;
+}
+
+.case-common-details-container {
+    padding: 8px;
+    background-color: #e2dfdb;
+    border-radius: 4px;
+}
+
+.case-common-box {
+    background-color: white;
+}
+
+.case-common-panel {
+    font-weight: bold;
+}
+
+.case-common-text {
+    font-weight: 400;
+}
+
+.case-common-panel .ant-collapse-content-box {
+    border: none;
+}

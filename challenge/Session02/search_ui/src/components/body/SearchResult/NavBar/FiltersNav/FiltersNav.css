@@ -1,0 +1,60 @@
+.filers-nav-container {
+    background-color: white;
+    margin: 4px 0;
+    border-radius: 4px;
+}
+
+.filers-nav-header {
+    width: 100%;
+    padding: 8px 16px;
+    border: none;
+    display: flex;
+    align-items: center;
+    border-radius: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.filers-icons {
+    margin-right: 8px;
+}
+
+.filers-label {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.filers-nav-body {
+    width: 100%;
+    padding: 8px 16px;
+    border-radius: none;
+}
+
+.filters-checkbox-items {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    padding: 4px 0;
+}
+
+.filters-checkbox-items-name {
+    margin-right: 8px;
+    font-weight: 400;
+}
+
+.filters-panel-box {
+    border: none;
+}
+
+.filters-panel-category {
+    background-color: #e2dfdb;
+    font-weight: bold;
+    margin: 4px 0;
+    border-radius: 4px !important;
+}
+
+.filter-nav-control {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+}
