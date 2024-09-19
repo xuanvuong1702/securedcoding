@@ -24,7 +24,10 @@ def search_products(name):
     sql = f"SELECT * FROM products WHERE name LIKE ?"
 
     # Execute query and fetch results
+
     conn = get_db()
+
+    #using parameterized query to prevent sql injection
     results = conn.execute(sql, (name,)).fetchall()
     conn.close()
     return results
@@ -48,6 +51,9 @@ def get_db():
             print(f"An error occurred: {e.args[0]}")
     return db
 
+
+#samle query: http://localhost:5000/Product%201
+#
 @app.route('/<name>', methods=['GET'])
 def home(name):
     product = search_products(name)
