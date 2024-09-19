@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/poc/v1")
 @RequiredArgsConstructor
 @Slf4j
+// CORS is enabled for all origins
 @CrossOrigin("*")
 public class LanguageProcessorController {
 

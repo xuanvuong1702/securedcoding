@@ -14,9 +14,23 @@ public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
 
   @Override
   public LocalDateTime deserialize(JsonParser p, DeserializationContext ctxt)
-      throws IOException, JsonProcessingException {
-    ObjectCodec codec = p.getCodec();
-    String dateString = codec.readValue(p, String.class);
-    return LocalDateTime.parse(dateString, formatter);
-  }
+        throws IOException, JsonProcessingException {
+      ObjectCodec codec = p.getCodec();
+      String dateString = codec.readValue(p, String.class);
+
+      // Validate dateString
+      if (dateString == null || dateString.isEmpty()) {
+        throw new IllegalArgumentException("Invalid date string");
+      }
+
+      try {
+        return LocalDateTime.parse(dateString, formatter);
+      } catch (DateTimeParseException e) {
+        // Log the exception without exposing sensitive information
+        log.error("Cannot parse date string", e);
+
+        // Throw a generic exception message
+        throw new JsonProcessingException("An error occurred while parsing date string");
+      }
+    }
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/poc/v1")
 @RequiredArgsConstructor
 @Slf4j
+// CORS is enabled for all origins
 @CrossOrigin("*")
 public class ETLController {
   private final LawInjuryCaseService injuryCaseService;

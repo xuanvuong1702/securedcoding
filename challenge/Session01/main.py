@@ -32,17 +32,20 @@ def search_products(name):
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        if not os.path.exists(DATABASE):
-            conn = sqlite3.connect(DATABASE)
-            conn.execute('''CREATE TABLE products
-                            (id INTEGER PRIMARY KEY,
-                            name TEXT NOT NULL);''')
-            # Insert mock data
-            mock_data = [('Product 1',), ('Product 2',), ('Product 3',)]
-            conn.executemany('INSERT INTO products (name) VALUES (?)', mock_data)
-            conn.commit()
-            conn.close()
-        db = g._database = sqlite3.connect(DATABASE)
+        try:
+            if not os.path.exists(DATABASE):
+                conn = sqlite3.connect(DATABASE)
+                conn.execute('''CREATE TABLE products
+                                (id INTEGER PRIMARY KEY,
+                                name TEXT NOT NULL);''')
+                # Insert mock data
+                mock_data = [('Product 1',), ('Product 2',), ('Product 3',)]
+                conn.executemany('INSERT INTO products (name) VALUES (?)', mock_data)
+                conn.commit()
+                conn.close()
+            db = g._database = sqlite3.connect(DATABASE)
+        except sqlite3.Error as e:
+            print(f"An error occurred: {e.args[0]}")
     return db
 
 @app.route('/<name>', methods=['GET'])

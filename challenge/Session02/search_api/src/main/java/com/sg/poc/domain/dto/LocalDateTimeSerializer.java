@@ -13,7 +13,20 @@ public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
 
   @Override
   public void serialize(LocalDateTime value, JsonGenerator gen, SerializerProvider serializers)
-      throws IOException {
-    gen.writeString(formatter.format(value));
-  }
+        throws IOException {
+      // Validate value
+      if (value == null) {
+        throw new IllegalArgumentException("Invalid LocalDateTime value");
+      }
+
+      try {
+        gen.writeString(formatter.format(value));
+      } catch (Exception e) {
+        // Log the exception without exposing sensitive information
+        log.error("Cannot format LocalDateTime value", e);
+
+        // Throw a generic exception message
+        throw new IOException("An error occurred while formatting LocalDateTime value");
+      }
+    }
 }

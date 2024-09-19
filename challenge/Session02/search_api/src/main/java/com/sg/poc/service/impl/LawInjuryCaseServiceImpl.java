@@ -51,6 +51,12 @@ public class LawInjuryCaseServiceImpl implements LawInjuryCaseService {
     if (!isExist()) {
       create();
     }
+
+    // Validate request
+    if (request == null || request.getIds() == null) {
+      throw new IllegalArgumentException("Invalid request");
+    }
+
     if (CollectionUtils.isEmpty(request.getIds())) {
       lawInjuryCaseRepository.findAll().stream().parallel().forEach(this::save);
       return Math.toIntExact(lawInjuryCaseRepository.count());
@@ -67,7 +73,8 @@ public class LawInjuryCaseServiceImpl implements LawInjuryCaseService {
             save(injuryCase);
           });
         } catch (Exception e) {
-          log.error("Ingest id: {} fails and message: {}", id, e.getMessage());
+          // Log the exception without exposing sensitive information
+          log.error("Cannot ingest data", e);
         }
       });
       return count.get();
@@ -76,18 +83,29 @@ public class LawInjuryCaseServiceImpl implements LawInjuryCaseService {
 
   @Override
   public LawInjuryCase findById(Integer id) {
+
+    //validate input id
+    if (id == null || id < 0) {
+      throw new IllegalArgumentException("Invalid id");
+    }
+
     try {
+    
       GetResponse<LawInjuryCase> response = elasticsearchClient.get(g -> g
               .index(INDEX_NAME)
               .id(String.valueOf(id)),
           LawInjuryCase.class);
+
+      //remve sensite infomation from log
       log.info("Retrieve data completed id: ###{}", id);
       if (response.source() != null) {
         return response.source();
       } else {
+        //remove sensitive information
         throw new BusinessException("Can not find LawInjuryCase with id " + id);
       }
     } catch (Exception e) {
+      //handle sensive information
       log.error("Cannot retrieve data id: {} and message: {}", id, e.getMessage());
       throw new BusinessException(e.getMessage());
     }
@@ -96,6 +114,12 @@ public class LawInjuryCaseServiceImpl implements LawInjuryCaseService {
   @Override
   @SneakyThrows
   public Object search(SearchRequest searchRequest) {
+
+    //validate inut searchRequest
+    if (searchRequest == null || StringUtils.isEmpty(searchRequest.getQuery())) {
+      throw new IllegalArgumentException("Invalid searchRequest");
+    }
+
     if (StringUtils.hasText(searchRequest.getQuery())
         && CollectionUtils.isEmpty(historySearchTermRepo.findBySearchTerm(searchRequest.getQuery()))) {
       historySearchTermRepo.save(new HistorySearchTerm(searchRequest.getQuery(), LocalDateTime.now()));
@@ -172,6 +196,10 @@ public class LawInjuryCaseServiceImpl implements LawInjuryCaseService {
   }
 
   private void deleteDocument(Integer id) {
+    //validate input
+    if (id == null || id < 0) {
+      throw new IllegalArgumentException("Invalid id");
+    }
     try {
       DeleteRequest deleteRequest = DeleteRequest.of(
           d -> d.index(INDEX_NAME).id(String.valueOf(id)));
@@ -184,20 +212,30 @@ public class LawInjuryCaseServiceImpl implements LawInjuryCaseService {
 
 
   public GetResponse<LawInjuryCase> retrieveDocument(Integer id) {
+
+    //validate input id
+    if (id == null || id < 0) {
+      throw new IllegalArgumentException("Invalid id");
+    }
+
     try {
       GetResponse<LawInjuryCase> response = elasticsearchClient.get(g -> g
               .index(INDEX_NAME)
               .id(String.valueOf(id)),
           LawInjuryCase.class);
+
+      //remove sensitive information
       log.info("Retrieve data completed id: ###{}", id);
       return response;
     } catch (Exception e) {
+      //handle sensitive information
       log.error("Cannot retrieve data id: {} and message: {}", id, e.getMessage());
       throw new BusinessException(e.getMessage());
     }
   }
 
   private void save(LawInjuryCase obj) {
+    
     try {
       elasticsearchClient.index(i -> i
           .index(INDEX_NAME)
