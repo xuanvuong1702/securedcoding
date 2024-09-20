@@ -9,10 +9,12 @@ Welcome to the CRUD backoffices coding challenge! Your task is to create a techn
 
     -   Admin can create, modify and deactive/inactive users..
     -   The system do not allow user with same phone and email
+
 2.  **Roles CRUD**:
 
     -   Admin can create, modify and delete roles (that not bind to any users).
     -   Roles should have unique name
+    
 3.  **Roles Matrix**:
 
     -   Admin can define roles permission.
